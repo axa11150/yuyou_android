@@ -66,7 +66,7 @@ function showMainUI(){
                                         <Switch w="*" margin="10 3" textColor="#666666" checked="" text="屏幕截图权限" id="jietu"/>\
                                         <Switch w="*" margin="10 3" textColor="#666666" checked="true" text="内核自动更新" id=""/>\
                                         <Switch w="*" margin="10 3" textColor="#666666" checked="true" text="程序后台运行" id="IgnoredPower"/>\
-                                        <Switch w="*" margin="10 3" textColor="#666666" checked="{{ui_log_floaty_status()}}" text="悬浮运行日志" id="log_floaty"/>\
+                                        <Switch w="*" margin="10 3" textColor="#666666" checked="" text="悬浮运行日志" id="log_floaty"/>\
                                     </vertical>\
                                 </card>\
                                 <card w="*" layout_weight="1" margin="7 5" cardCornerRadius="6dp" cardElevation="2dp">\
@@ -113,12 +113,6 @@ function showMainUI(){
                                 <text text="xx功能:" margin="3"/>\
                                 <horizontal >\
                                     <Switch layout_weight="1" margin="3 3" textColor="#666666" checked="false" text="消息自动回复|聚合聊天|自动上架" id="auto_monitor"/>\
-                                </horizontal>\
-                                <horizontal >\
-                                    <button layout_weight="1" id="yanghao" text="xxxx"/>\
-                                    <button layout_weight="1" id="yanghao_unity" text="xxxx"/>\
-                                    <button layout_weight="1" id="yanghao_tz" text="xxxx"/>\
-                                    <button layout_weight="1" id="re_edit" text="xxxx"/>\
                                 </horizontal>\
                                 <horizontal >\
                                     <button layout_weight="1" id="xy_goods_polish" text="擦亮商品"/>\
@@ -179,19 +173,7 @@ function showMainUI(){
                                         <text >当前版本：</text>\
                                         <text id="now_xhsv">{{common.getVersionName(setting.xhs_pname)}}</text>\
                                         <button id="down_xhs"  h="30" padding="8 0" text="浏览器下载" color="#ff5d85ff" style="Widget.AppCompat.Button.Borderless.Colored"/>\
-                                    </horizontal>\
-                                <text h="20" layout_gravity="left|bottom" text="如您希望能控制其他软件，可以向管理员反应" margin="12 1" textColor="#666666"  textSize="12sp"/>\
                             </card>\
-                        </vertical>\
-                    </frame>\
-                    <frame>\
-                        <card w="*" h="*" margin="7 5" cardCornerRadius="6dp" cardElevation="2dp">\
-                            <vertical padding="8" h="auto">\
-                                <vertical >\
-                                    <com.stardust.autojs.core.console.ConsoleView  id="console"  h="*"/>\
-                                </vertical>\
-                            </vertical>\
-                        </card>\
                     </frame>\
                 </viewpager>\
             </vertical>\
@@ -862,7 +844,7 @@ function backgroundAlpha(bgAlpha) {
 function show_log_floaty() {
     if(setting.log_floaty == null){
         let w = floaty.rawWindow(
-            '<vertical bg="#90000000" h="1" w="1" id="ConSP"><com.stardust.autojs.core.console.ConsoleView h="*" id="ConS" margin="10"/></vertical>'
+            '<vertical bg="#90000000" h="1" w="1" id="ConSP"><com.stardust.autojs.core.console h="*" id="ConS" margin="10"/></vertical>'
         );
         setTimeout(function () {
             w.setSize(device.width*0.6, device.height * 0.16);
@@ -873,15 +855,6 @@ function show_log_floaty() {
                 w.ConS.setConsole(runtime.console);
                 let c = new android.util.SparseArray();
                 let Log = android.util.Log;
-                c.put(Log.VERBOSE, new java.lang.Integer(colors.parseColor("#009688")));
-                c.put(Log.INFO, new java.lang.Integer(colors.parseColor("#009688")));
-                c.put(Log.ERROR, new java.lang.Integer(colors.parseColor("#FF5722")));
-                c.put(Log.WARN, new java.lang.Integer(colors.parseColor("#009688")));
-                c.put(Log.DEBUG, new java.lang.Integer(colors.parseColor("#009688")));
-                c.put(Log.ASSERT, new java.lang.Integer(colors.parseColor("#009688")));
-                w.ConS.setColors(c);
-                w.ConSP.attr("w", Math.floor(device.width* 0.6) +"px")
-                w.ConSP.attr("h", Math.floor(device.height* 0.16) +"px")
             });
             setting.log_floaty = true            
         },200)
