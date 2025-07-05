@@ -103,7 +103,6 @@ function showMainUI(){
                     </frame>\
                     <frame>\
                         <card w="*" h="*" margin="7 5" cardCornerRadius="6dp" cardElevation="2dp">\
-                            <vertical margin="2">\
                                 {/* <text text="基础功能:" margin="3"/>\
                                 <horizontal >\
                                     <button layout_weight="1" id="clear_img" text="清除缓存"/>\
@@ -157,14 +156,12 @@ function showMainUI(){
                                     <button layout_weight="1" id="zz_re_edit" text="流量模式"/>\
                                     <button layout_weight="1" id="" text="暂无功能"/>\
                                     <button layout_weight="1" id="open_zz" text="启动xx"/>\
-                                </horizontal>\
                             </vertical>\
                         </card>\
                     </frame>\
                     <frame>\
                         <vertical>\
                             <card w="*" h="*" margin="7 5" cardCornerRadius="6dp" cardElevation="2dp">\
-                                <vertical  h="*">\
                                     <Switch w="*" margin="10 3" textColor="#666666" checked="{{common.getVersionName(setting.zz_pname) == setting.zz_app_version}}" text="安装xx {{setting.zz_app_version}}" id="initZzApp"/>\
                                     <horizontal w="*" margin="20 0">\
                                         <text >当前版本：</text>\
@@ -183,7 +180,6 @@ function showMainUI(){
                                         <text id="now_xhsv">{{common.getVersionName(setting.xhs_pname)}}</text>\
                                         <button id="down_xhs"  h="30" padding="8 0" text="浏览器下载" color="#ff5d85ff" style="Widget.AppCompat.Button.Borderless.Colored"/>\
                                     </horizontal>\
-                                </vertical>\
                                 <text h="20" layout_gravity="left|bottom" text="如您希望能控制其他软件，可以向管理员反应" margin="12 1" textColor="#666666"  textSize="12sp"/>\
                             </card>\
                         </vertical>\
@@ -686,24 +682,17 @@ function showLoginUI() {
         '<vertical layout_weight="1" gravity="center" bg="#00ffffff">\
             <vertical gravity="center" margin="25" bg="#ffffff">\
             <text text="{{sys_msg.sys_name}}系统账号" size="15" color="#000000" padding="24 10" />\
-            <vertical margin="25 0 25 10">\
-                <linear>\
-                <text gravity="center" color="#555555" size="17" text="账号 " />\
-                <input textColor="#000000" id="username2" w="*" />\
-                </linear>\
-                <linear>\
-                <text gravity="center" color="#555555" size="17" text="密码 " />\
-                <input textColor="#000000" id="password2" w="*" password="true" />\
-                </linear>\
-            </vertical>\
-            <relative>\
-                <button id="cancel2" layout_alignParentLeft="true" text="取消" style="Widget.AppCompat.Button.Borderless.Colored" w="auto"/>\
-                <button id="login2" layout_alignParentRight="true" text="登录" style="Widget.AppCompat.Button.Borderless.Colored" w="auto"/>\
-            </relative>\
-            </vertical>\
+            <linear>\
+            <text gravity="center" color="#555555" size="17" text="账号 " />\
+            <input textColor="#000000" id="username2" w="*" />\
+            </linear>\
+            <linear>\
+            <text gravity="center" color="#555555" size="17" text="密码 " />\
+            <input textColor="#000000" id="password2" w="*" password="true" />\
+            </linear>\
+            <button id="cancel2" layout_alignParentLeft="true" text="取消" style="Widget.AppCompat.Button.Borderless.Colored" w="auto"/>\
+            <button id="login2" layout_alignParentRight="true" text="登录" style="Widget.AppCompat.Button.Borderless.Colored" w="auto"/>\
         </vertical>',
-        null,
-        false
       );
       let mPopWindow = new PopupWindow(
         view,
@@ -713,7 +702,6 @@ function showLoginUI() {
     ); //参数为1.View 2.宽度 3.高度
     mPopWindow.setFocusable(true);
     mPopWindow.setOutsideTouchable(false);
-    mPopWindow.setContentView(view);
     
     mPopWindow.setOnDismissListener(
         new PopupWindow.OnDismissListener({
@@ -727,7 +715,6 @@ function showLoginUI() {
     //动画
     let myAnim = new ScaleAnimation(0, 1, 0, 1, Animation.RELATIVE_TO_SELF, 0.5, 1, 0.5);
     myAnim.setDuration(500);
-    view.startAnimation(myAnim);
     backgroundAlpha(0.5);
     
     view.login2.click(function () {
@@ -825,8 +812,6 @@ function check_name_pwd(uname,pwd){
         var res = http.post(url, {
             "name": uname,
             "pwd": pwd,
-            "is_mobile": true,
-            "phone_info":common.mobile_info(),
         });
 
         let r = res.body.json();
@@ -912,7 +897,6 @@ function houtai_tanchu() {
     try {
         has_tanchu = context.getSystemService("appops").checkOp(10021, android.os.Binder.getCallingUid(), context.getPackageName()) == 0 
     } catch (e) {
-        // 不是小米手机
         has_tanchu = true
     }
     if(has_tanchu){
